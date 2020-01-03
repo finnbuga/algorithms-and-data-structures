@@ -1,15 +1,19 @@
-# Common Algorithms & Data Structures implemented in TypeScript
+# Common Algorithms & Data Structures in TypeScript
 
-My goal is to implement common algorithms in an efficient and **readable** way. I always see them implemented efficiently but horribly in terms of separation of concerns, variable and functions naming, etc.
-Please let me know your thoughts.
+![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.png?v=101)
 
-Unit testing done with Mocha & Chai.
+## Writing Readable Code
 
+Whenever I search Google for algorithms I find implementations that are written in an efficient way. However they're written horribly in terms of separation of concerns, variable naming, function naming, etc.
+
+This repo is my attempt to write both efficient __and__ readable algorithms. Please let me know your thoughts.
+
+## Get started
 ```
 $ npm install
+```
+```
 $ npm test
 ```
 
-Use this to run the unit tests. It also watches for any changes in the current directory and runs the tests when the files change. So feel free to hack the code and see if the tests pass right away.
-
-Exit with `Ctrl+C`.
+Use this to run the unit tests. It also watches for any changes in the current directory. So feel free to hack the code, save the file and you'll see right away if the tests pass. Exit with `Ctrl+C`.
