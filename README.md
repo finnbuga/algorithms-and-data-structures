@@ -17,3 +17,7 @@ $ npm test
 ```
 
 Use this to run the unit tests. It also watches for any changes in the current directory. So feel free to hack the code, save the file and you'll see right away if the tests pass. Exit with `Ctrl+C`.
+
+## Algorithms
+
+- [Min-Heap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MinHeap.ts)
