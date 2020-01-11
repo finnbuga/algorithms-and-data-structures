@@ -1,83 +1,64 @@
-export default class MinHeap {
-  private nodes: number[] = [];
+import CompleteBinaryTreeInArray from "./CompleteBinaryTreeInArray";
+import Node from "./NodeWithIndex";
 
-  public getNodes(): number[] {
-    return this.nodes;
+/**
+ * A Min-Heap is a Complete Binary Tree in which
+ * the value of each node is less than the values in the node's children
+ */
+export default class MinHeap extends CompleteBinaryTreeInArray {
+  /**
+   * Insert a value and make sure the tree remains a Min-Heap.
+   */
+  insert(value: number): void {
+    const node = this.insertValueAtTheEnd(value);
+    this.bubbleUpSmallValue(node);
   }
 
-  public insert(value: number): void {
-    this.nodes.push(value);
-    const lastNode: number = this.nodes.length - 1;
-    this.bubbleUpNode(lastNode);
+  private bubbleUpSmallValue(node: Node): void {
+    const parent: Node = this.getParent(node);
+    if (parent && node.value < parent.value) {
+      this.swapValuesBetweenNodes(node, parent);
+      this.bubbleUpSmallValue(parent);
+    }
   }
 
-  public extractMin(): number {
-    if (this.nodes.length === 0) {
+  /**
+   * Extract the min value. In a Min-Heap that's the root.
+   * Then rearange the nodes so that the tree remains a Min-Heap.
+   */
+  extractMin(): any {
+    if (this.isEmpty()) {
       return null;
-    } else if (this.nodes.length === 1) {
-      return this.nodes.pop();
     }
 
-    const topNode: number = 0;
-    const minValue: number = this.nodes[topNode];
+    const minValue: number = this.getRoot().value;
 
-    this.moveLastNodeToTop();
-    this.bubbleDownNode(topNode);
+    this.swapValuesBetweenNodes(this.getRoot(), this.getLastNode());
+    this.removeLastNode();
+
+    if (!this.isEmpty()) {
+      this.bubbleDownSmallValue(this.getRoot());
+    }
 
     return minValue;
   }
 
-  private bubbleUpNode(node: number): void {
-    const parent: number = this.getParent(node);
-    if (parent !== null && this.nodes[node] < this.nodes[parent]) {
-      this.swapNodes(node, parent);
-      this.bubbleUpNode(parent);
+  private bubbleDownSmallValue(node: Node): void {
+    const smallestChild: Node = this.getSmallestChild(node);
+
+    if (smallestChild && smallestChild.value < node.value) {
+      this.swapValuesBetweenNodes(node, smallestChild);
+      this.bubbleDownSmallValue(smallestChild);
     }
   }
 
-  private bubbleDownNode(node: number): void {
-    const smallestChild: number = this.getSmallestChild(node);
-
-    if (
-      smallestChild !== null &&
-      this.nodes[node] > this.nodes[smallestChild]
-    ) {
-      this.swapNodes(node, smallestChild);
-      this.bubbleDownNode(smallestChild);
-    }
-  }
-
-  private swapNodes(n1: number, n2: number): void {
-    const n1Value: number = this.nodes[n1];
-    this.nodes[n1] = this.nodes[n2];
-    this.nodes[n2] = n1Value;
-  }
-
-  private getParent(n: number): number {
-    return n > 0 ? Math.floor((n - 1) / 2) : null;
-  }
-
-  private getSmallestChild(node: number): number {
-    const leftChild: number = this.getLeftChild(node);
-    const rightChild: number = this.getRightChild(node);
+  private getSmallestChild(node: Node): Node {
+    const leftChild: Node = this.getLeftChild(node);
+    const rightChild: Node = this.getRightChild(node);
 
     return rightChild === null ||
-      (leftChild !== null && this.nodes[leftChild] < this.nodes[rightChild])
+      (leftChild !== null && leftChild.value < rightChild.value)
       ? leftChild
       : rightChild;
-  }
-
-  private getLeftChild(node: number): number {
-    const i: number = node * 2 + 1;
-    return i < this.nodes.length ? i : null;
-  }
-
-  private getRightChild(node: number): number {
-    const i: number = node * 2 + 2;
-    return i < this.nodes.length ? i : null;
-  }
-
-  private moveLastNodeToTop(): void {
-    this.nodes[0] = this.nodes.pop();
   }
 }
