@@ -21,3 +21,4 @@ Use this to run the unit tests. It also watches for any changes in the current d
 ## Algorithms
 
 - [Min-Heap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MinHeap.ts)
+- [BitMap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/BitMap.ts)
