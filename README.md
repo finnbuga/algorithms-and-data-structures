@@ -22,3 +22,7 @@ Use this to run the unit tests. It also watches for any changes in the current d
 
 - [Min-Heap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MinHeap.ts)
 - [BitMap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/BitMap.ts)
+- [Multi Set](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MultiSet.ts)
+
+## Problems
+- [Find all permutations of a given string with duplicate characters](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/PermutationsWithDuplicates.ts)
