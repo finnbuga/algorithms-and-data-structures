@@ -2,6 +2,13 @@ import { assert } from "chai";
 import MinHeap from "../src/MinHeap";
 
 describe("MinHeap", () => {
+  it("Should throw on attmpting to insert undefined, null or NaN values", () => {
+    const minHeap = new MinHeap();
+    assert.throws(() => minHeap.insert(undefined));
+    assert.throws(() => minHeap.insert(null));
+    assert.throws(() => minHeap.insert(Number.NaN));
+  });
+
   it("Should return null when extracting from an empty tree", () => {
     const minHeap = new MinHeap();
     assert.equal(minHeap.extractMin(), null);
