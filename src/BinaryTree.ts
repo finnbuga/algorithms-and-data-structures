@@ -1,6 +1,6 @@
-import Node from "./Node";
+export default interface BinaryTree<Node> {
+  isEmpty(): boolean;
 
-export default interface IBinaryTree {
   getRoot(): Node;
 
   getParent(node: Node): Node;

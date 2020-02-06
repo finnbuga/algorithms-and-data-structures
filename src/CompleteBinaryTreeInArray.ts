@@ -1,9 +1,12 @@
-import Node from "./NodeWithIndex";
-import IBinaryTree from "./IBinaryTree";
+import CompleteBinaryTree from "./CompleteBinaryTree";
 
 /**
- * A Complete Binary Tree has all levels, except possibly the last one, fully filled
- * and, if the last level is not complete, the nodes of that level are filled from left to right.
+ * A Complete Binary Tree has all levels fully filled except perhaps the last one
+ * where the nodes are filled from left to right.
+ *
+ * The right most node on the last level is called the Last Node (5 in the example bellow).
+ * This is an important position in a Complete Binary Tree as it's the only position
+ * where nodes can be added or removed and still keep the Complete and Binary qualities of the tree
  *
  *        0
  *      /   \
@@ -11,72 +14,94 @@ import IBinaryTree from "./IBinaryTree";
  *    /\    /
  *   3  4  5
  *
- * One can associate each node with an index: starting with 0 at the root and moving down from left to right.
- * So an array is a convenient data structure to hold a Complete Tree.
+ * This data structure can be implemented using an array:
+ * Associate each node with an index: starting with 0 for the root and moving down from left to right.
+ * The Last Node will therefore have the last index in the array.
+ *
+ * A node's parent and children can be calculated based on its index:
+ * leftChild = node * 2 + 1
+ * rightChild = node * 2 + 2
+ * parent = Math.floor((node - 1) / 2)
  */
-export default class CompleteBinaryTreeInArray implements IBinaryTree {
-  private nodes: Node[] = [];
-
-  getValues(): any[] {
-    return this.nodes.map(node => node.value);
-  }
+export default class CompleteBinaryTreeInArray<Value>
+  implements CompleteBinaryTree<number, Value> {
+  protected nodes: Value[] = [];
 
   isEmpty(): boolean {
     return this.nodes.length === 0;
   }
 
-  getRoot(): Node {
-    return !this.isEmpty() ? this.nodes[0] : null;
-  }
-
-  getParent(node: Node): Node {
-    if (node.index === 0) {
-      return null;
-    }
-
-    // one needs to do some math in order to arrive at the equation bellow
-    const parentIndex: number = Math.floor((node.index - 1) / 2);
-    return this.nodes[parentIndex];
-  }
-
-  getLeftChild(node: Node): Node {
-    // one needs to do some math in order to arrive at the equation bellow
-    const index: number = node.index * 2 + 1;
-    return index < this.nodes.length ? this.nodes[index] : null;
-  }
-
-  getRightChild(node: Node): Node {
-    // one needs to do some math in order to arrive at the equation bellow
-    const index: number = node.index * 2 + 2;
-    return index < this.nodes.length ? this.nodes[index] : null;
+  /**
+   * Get root node
+   */
+  getRoot(): number {
+    return !this.isEmpty() ? 0 : null;
   }
 
   /**
-   * The last node is the right most node on the last level.
-   * In the array representation that's the last element in the array.
+   * Get parent node
+   *
+   * Use formula: parent = Math.floor((node - 1) / 2).
    */
-  getLastNode(): Node {
-    return !this.isEmpty() ? this.nodes[this.nodes.length - 1] : null;
+  getParent(node: number): number {
+    if (node === this.getRoot()) {
+      return null;
+    }
+
+    return Math.floor((node - 1) / 2);
   }
 
+  /**
+   * Get left child node
+   *
+   * Use formula: leftChild = node * 2 + 1.
+   */
+  getLeftChild(node: number): number {
+    const leftChild: number = node * 2 + 1;
+    return this.containsNode(leftChild) ? leftChild : null;
+  }
+
+  /**
+   * Get right child node
+   *
+   * Use formula: rightChild = node * 2 + 2.
+   */
+  getRightChild(node: number): number {
+    const rightChild: number = node * 2 + 2;
+    return this.containsNode(rightChild) ? rightChild : null;
+  }
+
+  /**
+   * Insert value
+   *
+   * Insert new node as Last Node such that to maintain a Complete Binary Tree
+   * (see the explanation on the Last Node in this class' description)
+   */
+  insert(value: Value): number {
+    this.nodes.push(value);
+    return this.getLastNode();
+  }
+
+  /**
+   * Get Last Node
+   *
+   * (see the explanation on the Last Node in this class' description)
+   */
+  getLastNode(): number {
+    return !this.isEmpty() ? this.nodes.length - 1 : null;
+  }
+
+  /**
+   * Remove Last Node
+   *
+   * Only the Last Node can be removed such that to maintain a Complete Binary Tree
+   * (see the explanation on the Last Node in this class' description)
+   */
   removeLastNode(): void {
     this.nodes.pop();
   }
 
-  swapValuesBetweenNodes(n1: Node, n2: Node): void {
-    [n1.value, n2.value] = [n2.value, n1.value];
-  }
-
-  /**
-   * Insert a value while maintaining a Complete Tree
-   * The only place: after the right most node on the last level
-   * In the array representation that corresponds to the end of the array.
-   */
-  insertValueAtTheEnd(value: any): Node {
-    const node = new Node(value);
-    this.nodes.push(node);
-    node.index = this.nodes.length - 1;
-
-    return node;
+  private containsNode(node: number): Boolean {
+    return node < this.nodes.length;
   }
 }
