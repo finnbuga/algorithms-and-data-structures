@@ -65,7 +65,7 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
   private bubbleUpSmallValue(node: number) {
     const parent: number = this.getParent(node);
 
-    if (parent && this.nodes[node] < this.nodes[parent]) {
+    if (parent != null && this.nodes[node] < this.nodes[parent]) {
       this.swapNodes(node, parent);
       this.bubbleUpSmallValue(parent);
     }
