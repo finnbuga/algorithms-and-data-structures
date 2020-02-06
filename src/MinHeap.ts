@@ -17,7 +17,7 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
    * O(log n) time.
    */
   insert(value: number): void {
-    if (value === undefined || value === null || Number.isNaN(value)) {
+    if (value == null || Number.isNaN(value)) {
       throw new TypeError("Cannot insert undefined, null or NaN values");
     }
 
