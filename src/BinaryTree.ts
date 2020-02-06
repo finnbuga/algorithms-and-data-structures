@@ -1,7 +1,7 @@
 export default interface BinaryTree<Node> {
-  isEmpty(): boolean;
+  root: Node;
 
-  getRoot(): Node;
+  isEmpty(): boolean;
 
   getParent(node: Node): Node;
 

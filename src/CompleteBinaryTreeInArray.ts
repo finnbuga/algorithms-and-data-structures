@@ -34,7 +34,7 @@ export default class CompleteBinaryTreeInArray<Value>
   /**
    * Get root node
    */
-  getRoot(): number {
+  get root(): number {
     return !this.isEmpty() ? 0 : null;
   }
 
@@ -44,7 +44,7 @@ export default class CompleteBinaryTreeInArray<Value>
    * Use formula: parent = Math.floor((node - 1) / 2).
    */
   getParent(node: number): number {
-    if (node === this.getRoot()) {
+    if (node === this.root) {
       return null;
     }
 
@@ -77,9 +77,8 @@ export default class CompleteBinaryTreeInArray<Value>
    * Insert new node as Last Node such that to maintain a Complete Binary Tree
    * (see the explanation on the Last Node in this class' description)
    */
-  insert(value: Value): number {
+  insert(value: Value): void {
     this.nodes.push(value);
-    return this.getLastNode();
   }
 
   /**
@@ -87,7 +86,7 @@ export default class CompleteBinaryTreeInArray<Value>
    *
    * (see the explanation on the Last Node in this class' description)
    */
-  getLastNode(): number {
+  get lastNode(): number {
     return !this.isEmpty() ? this.nodes.length - 1 : null;
   }
 

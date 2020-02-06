@@ -22,7 +22,7 @@ export default interface CompleteBinaryTree<Node, Value>
    * Insert new node as Last Node such that to maintain a Complete Binary Tree
    * (see the explanation on the Last Node in this interface's description)
    */
-  insert(value: Value): Node;
+  insert(value: Value): void;
 
   /**
    * Remove Last Node

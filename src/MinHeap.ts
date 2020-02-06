@@ -1,39 +1,42 @@
 import CompleteBinaryTreeInArray from "./CompleteBinaryTreeInArray";
 
 /**
- * A Min-Heap is a Complete Binary Tree in which
- * the value of each node is less than the values in the node's children.
+ * A Min-Heap is a Complete Binary Tree in which any parent node value is less than its children's.
  */
 export default class MinHeap extends CompleteBinaryTreeInArray<number> {
   /**
    * Insert value
    *
-   * Insert new node as Last Node such that to maintain a Complete Binary Tree
-   * (see the explanation on the Last Node in the Complete Binary Tree interface description)
-   * In order to keep the Min-Heap quality, the new node might have to
-   * be moved higher in the tree (bubbled up) until it's bigger than its parent and
-   * smaller than its children.
+   * Insert as Last Node such that to maintain a Complete Binary Tree
+   * (see the explanation on the Last Node in the Complete Binary Tree interface description
+   * https://github.com/zendka/algorithms-and-data-structures/blob/master/src/CompleteBinaryTree.ts)
+   *
+   * Then "bubble up" the node: move it higher in the tree until the Min-Heap is restored
+   * i.e. parent's value is less than its childrens'.
    *
    * O(log n) time.
    */
-  insert(value: number) {
+  insert(value: number): void {
     if (value === undefined || value === null || Number.isNaN(value)) {
       throw new TypeError("Cannot insert undefined, null or NaN values");
     }
+
     super.insert(value);
-    return this.bubbleUpSmallValue(this.getLastNode());
+    this.bubbleUpSmallValue(this.lastNode);
   }
 
   /**
    * Extract min
    *
    * The min value is in the root node.
-   * It's not possible to just remove the root node. The only place to remove
-   * a node in a Complete Binary Tree is the Last Node.
-   * (see the explanation on the Last Node in the Complete Binary Tree interface description)
-   * In order to keep the Min-Heap quality, the new root needs to be replaced with the minimum
-   * which is one of its children. Then repeat the process with its new children (sink it down)
-   * until it's smaller than them.
+   * It's not possible to just remove the root in a Complete Binary Tree quality.
+   * Only the Last Node can be removed, so swipe it with root, then remove it.
+   * (see the explanation on the Last Node in the Complete Binary Tree interface description
+   * https://github.com/zendka/algorithms-and-data-structures/blob/master/src/CompleteBinaryTree.ts)
+   *
+   * The new root is not necessarily the smallest value.
+   * We need to "sink down" the new root: move it down until the Min-Heap is restored
+   * i.e. parent's value is smaller than its children's.
    *
    * O(log n) time
    */
@@ -42,41 +45,36 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
       return null;
     }
 
-    const minValue: number = this.nodes[this.getRoot()];
+    const min: number = this.nodes[this.root];
 
-    this.swapNodes(this.getRoot(), this.getLastNode());
+    this.swapNodes(this.root, this.lastNode);
     this.removeLastNode();
 
     if (!this.isEmpty()) {
-      this.sinkDownBigValue(this.getRoot());
+      this.sinkDownBigValue(this.root);
     }
 
-    return minValue;
+    return min;
   }
 
   /**
    * Bubble up small value
    *
-   * Check if the given node is smaller than its parent and swap them if so.
-   * Continue the process from the new position.
-   * Return the node once the swapping is complete.
+   * Swap node with parent if not in the Min-Heap order (parent less than children)
    */
-  private bubbleUpSmallValue(node: number): number {
+  private bubbleUpSmallValue(node: number) {
     const parent: number = this.getParent(node);
 
     if (parent && this.nodes[node] < this.nodes[parent]) {
       this.swapNodes(node, parent);
-      return this.bubbleUpSmallValue(parent);
-    } else {
-      return node;
+      this.bubbleUpSmallValue(parent);
     }
   }
 
   /**
    * Sink down big value
    *
-   * Check if the given node is bigger than its children and swap them if so.
-   * Continue the process from the new position.
+   * Swap node with children if not in the Min-Heap order (parent less than children)
    */
   private sinkDownBigValue(node: number): void {
     const smallestChild: number = this.getSmallestChild(node);
@@ -91,9 +89,9 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
     const left: number = this.getLeftChild(node);
     const right: number = this.getRightChild(node);
 
-    const leftIsSmaller = left && right && this.nodes[left] < this.nodes[right];
-
-    return !right || leftIsSmaller ? left : right;
+    if (right === null) return left;
+    if (left === null) return right;
+    return this.nodes[left] < this.nodes[right] ? left : right;
   }
 
   private swapNodes(n1: number, n2: number): void {
