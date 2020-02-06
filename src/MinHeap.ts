@@ -1,64 +1,102 @@
 import CompleteBinaryTreeInArray from "./CompleteBinaryTreeInArray";
-import Node from "./NodeWithIndex";
 
 /**
  * A Min-Heap is a Complete Binary Tree in which
- * the value of each node is less than the values in the node's children
+ * the value of each node is less than the values in the node's children.
  */
-export default class MinHeap extends CompleteBinaryTreeInArray {
+export default class MinHeap extends CompleteBinaryTreeInArray<number> {
   /**
-   * Insert a value and make sure the tree remains a Min-Heap.
+   * Insert value
+   *
+   * Insert new node as Last Node such that to maintain a Complete Binary Tree
+   * (see the explanation on the Last Node in the Complete Binary Tree interface description)
+   * In order to keep the Min-Heap quality, the new node might have to
+   * be moved higher in the tree (bubbled up) until it's bigger than its parent and
+   * smaller than its children.
+   *
+   * O(log n) time.
    */
-  insert(value: number): void {
-    const node = this.insertValueAtTheEnd(value);
-    this.bubbleUpSmallValue(node);
-  }
-
-  private bubbleUpSmallValue(node: Node): void {
-    const parent: Node = this.getParent(node);
-    if (parent && node.value < parent.value) {
-      this.swapValuesBetweenNodes(node, parent);
-      this.bubbleUpSmallValue(parent);
+  insert(value: number) {
+    if (value === undefined || value === null || Number.isNaN(value)) {
+      throw new TypeError("Cannot insert undefined, null or NaN values");
     }
+    super.insert(value);
+    return this.bubbleUpSmallValue(this.getLastNode());
   }
 
   /**
-   * Extract the min value. In a Min-Heap that's the root.
-   * Then rearange the nodes so that the tree remains a Min-Heap.
+   * Extract min
+   *
+   * The min value is in the root node.
+   * It's not possible to just remove the root node. The only place to remove
+   * a node in a Complete Binary Tree is the Last Node.
+   * (see the explanation on the Last Node in the Complete Binary Tree interface description)
+   * In order to keep the Min-Heap quality, the new root needs to be replaced with the minimum
+   * which is one of its children. Then repeat the process with its new children (sink it down)
+   * until it's smaller than them.
+   *
+   * O(log n) time
    */
-  extractMin(): any {
+  extractMin(): number {
     if (this.isEmpty()) {
       return null;
     }
 
-    const minValue: number = this.getRoot().value;
+    const minValue: number = this.nodes[this.getRoot()];
 
-    this.swapValuesBetweenNodes(this.getRoot(), this.getLastNode());
+    this.swapNodes(this.getRoot(), this.getLastNode());
     this.removeLastNode();
 
     if (!this.isEmpty()) {
-      this.bubbleDownSmallValue(this.getRoot());
+      this.sinkDownBigValue(this.getRoot());
     }
 
     return minValue;
   }
 
-  private bubbleDownSmallValue(node: Node): void {
-    const smallestChild: Node = this.getSmallestChild(node);
+  /**
+   * Bubble up small value
+   *
+   * Check if the given node is smaller than its parent and swap them if so.
+   * Continue the process from the new position.
+   * Return the node once the swapping is complete.
+   */
+  private bubbleUpSmallValue(node: number): number {
+    const parent: number = this.getParent(node);
 
-    if (smallestChild && smallestChild.value < node.value) {
-      this.swapValuesBetweenNodes(node, smallestChild);
-      this.bubbleDownSmallValue(smallestChild);
+    if (parent && this.nodes[node] < this.nodes[parent]) {
+      this.swapNodes(node, parent);
+      return this.bubbleUpSmallValue(parent);
+    } else {
+      return node;
     }
   }
 
-  private getSmallestChild(node: Node): Node {
-    const leftChild: Node = this.getLeftChild(node);
-    const rightChild: Node = this.getRightChild(node);
+  /**
+   * Sink down big value
+   *
+   * Check if the given node is bigger than its children and swap them if so.
+   * Continue the process from the new position.
+   */
+  private sinkDownBigValue(node: number): void {
+    const smallestChild: number = this.getSmallestChild(node);
 
-    return rightChild === null ||
-      (leftChild !== null && leftChild.value < rightChild.value)
-      ? leftChild
-      : rightChild;
+    if (smallestChild && this.nodes[smallestChild] < this.nodes[node]) {
+      this.swapNodes(node, smallestChild);
+      this.sinkDownBigValue(smallestChild);
+    }
+  }
+
+  private getSmallestChild(node: number): number {
+    const left: number = this.getLeftChild(node);
+    const right: number = this.getRightChild(node);
+
+    const leftIsSmaller = left && right && this.nodes[left] < this.nodes[right];
+
+    return !right || leftIsSmaller ? left : right;
+  }
+
+  private swapNodes(n1: number, n2: number): void {
+    [this.nodes[n1], this.nodes[n2]] = [this.nodes[n2], this.nodes[n1]];
   }
 }
