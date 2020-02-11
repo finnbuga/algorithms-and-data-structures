@@ -16,6 +16,8 @@ import BinaryTree from "./BinaryTree";
  */
 export default interface CompleteBinaryTree<Node, Value>
   extends BinaryTree<Node> {
+  lastNode: Node;
+
   /**
    * Insert value
    *
@@ -31,4 +33,15 @@ export default interface CompleteBinaryTree<Node, Value>
    * (see the explanation on the Last Node in this interface's description)
    */
   removeLastNode(): void;
+
+  /**
+   * Swap nodes
+   *
+   * This is useful for rearanging nodes inside the tree without remove / insert operations.
+   * In order to keep the Complete quality, nodes can't be removed or inserted
+   * (except for the Last Node position). However, nodes can be inserted as Last Node
+   * then swapped into the right position. Or they can be swapped with the Last Node
+   * then removed.
+   */
+  swapNodes(n1: Node, n2: Node): void;
 }
