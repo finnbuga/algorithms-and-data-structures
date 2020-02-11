@@ -22,7 +22,7 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
     }
 
     super.insert(value);
-    this.bubbleUpSmallValue(this.lastNode);
+    this.bubbleUp(this.lastNode);
   }
 
   /**
@@ -45,13 +45,13 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
       return null;
     }
 
-    const min: number = this.nodes[this.root];
+    const min: number = this.getValue(this.root);
 
     this.swapNodes(this.root, this.lastNode);
     this.removeLastNode();
 
     if (!this.isEmpty()) {
-      this.sinkDownBigValue(this.root);
+      this.sinkDown(this.root);
     }
 
     return min;
@@ -62,12 +62,12 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
    *
    * Swap node with parent if not in the Min-Heap order (parent less than children)
    */
-  private bubbleUpSmallValue(node: number) {
+  private bubbleUp(node: number) {
     const parent: number = this.getParent(node);
 
-    if (parent != null && this.nodes[node] < this.nodes[parent]) {
+    if (parent !== null && this.getValue(node) < this.getValue(parent)) {
       this.swapNodes(node, parent);
-      this.bubbleUpSmallValue(parent);
+      this.bubbleUp(parent);
     }
   }
 
@@ -76,12 +76,12 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
    *
    * Swap node with children if not in the Min-Heap order (parent less than children)
    */
-  private sinkDownBigValue(node: number): void {
+  private sinkDown(node: number): void {
     const smallestChild: number = this.getSmallestChild(node);
 
-    if (smallestChild && this.nodes[smallestChild] < this.nodes[node]) {
+    if (smallestChild && this.getValue(smallestChild) < this.getValue(node)) {
       this.swapNodes(node, smallestChild);
-      this.sinkDownBigValue(smallestChild);
+      this.sinkDown(smallestChild);
     }
   }
 
@@ -91,10 +91,6 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
 
     if (right === null) return left;
     if (left === null) return right;
-    return this.nodes[left] < this.nodes[right] ? left : right;
-  }
-
-  private swapNodes(n1: number, n2: number): void {
-    [this.nodes[n1], this.nodes[n2]] = [this.nodes[n2], this.nodes[n1]];
+    return this.getValue(left) < this.getValue(right) ? left : right;
   }
 }
