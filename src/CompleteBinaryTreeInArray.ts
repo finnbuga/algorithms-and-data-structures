@@ -100,6 +100,19 @@ export default class CompleteBinaryTreeInArray<Value>
     this.nodes.pop();
   }
 
+  /**
+   * Swap nodes
+   *
+   * This is useful for rearanging nodes inside the tree without remove / insert operations.
+   * In order to keep the Complete quality, nodes can't be removed or inserted
+   * (except for the Last Node position). However, nodes can be inserted as Last Node
+   * then swapped into the right position. Or they can be swapped with the Last Node
+   * then removed.
+   */
+  swapNodes(n1: number, n2: number): void {
+    [this.nodes[n1], this.nodes[n2]] = [this.nodes[n2], this.nodes[n1]];
+  }
+
   private containsNode(node: number): Boolean {
     return node < this.nodes.length;
   }
