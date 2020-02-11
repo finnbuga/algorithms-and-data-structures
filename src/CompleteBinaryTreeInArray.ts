@@ -82,6 +82,13 @@ export default class CompleteBinaryTreeInArray<Value>
   }
 
   /**
+   * Get the value of a given node
+   */
+  getValue(node: number): Value {
+    return this.nodes[node];
+  }
+
+  /**
    * Get Last Node
    *
    * (see the explanation on the Last Node in this class' description)
