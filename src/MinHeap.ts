@@ -4,10 +4,10 @@ import CompleteBinaryTreeInArray from "./CompleteBinaryTreeInArray";
  * A Min-Heap is a Complete Binary Tree in which any parent node value is less than its children's.
  */
 export default class MinHeap extends CompleteBinaryTreeInArray<number> {
+  
   /**
-   * Insert new value at the Last Node position and bubble it up to restore the Min-Hip
-   *
-   * O (log n) time
+   * Insert as Last Node such that to maintain a Complete Binary Tree
+   * O(log n) time.
    */
   insert(value: number): void {
     if (value == null || Number.isNaN(value)) {
@@ -19,8 +19,9 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
   }
 
   /**
-   * The min value is in the root node. Swipe it with the Last Node and remove it.
-   * Then "sink down" the new root until to restore the Min-Heap
+   * The min value is in the root node.
+   * We can't remove the root in a Complete Binary Tree. 
+   * Only the Last Node can be removed, so swap it with root, then remove it.
    *
    * O(log n) time
    */
