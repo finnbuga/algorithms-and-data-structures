@@ -1,12 +1,13 @@
 import CompleteBinaryTreeInArray from "./CompleteBinaryTreeInArray";
 
 /**
- * A Min-Heap is a Complete Binary Tree in which any parent node value is less than its children's.
+ * A Min-Heap is a Complete Binary Tree in which any parent node value
+ * is less than its children's.
  */
 export default class MinHeap extends CompleteBinaryTreeInArray<number> {
-  
   /**
    * Insert as Last Node such that to maintain a Complete Binary Tree
+   *
    * O(log n) time.
    */
   insert(value: number): void {
@@ -20,7 +21,7 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
 
   /**
    * The min value is in the root node.
-   * We can't remove the root in a Complete Binary Tree. 
+   * We can't remove the root in a Complete Binary Tree.
    * Only the Last Node can be removed, so swap it with root, then remove it.
    *
    * O(log n) time
