@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import getPerms from "../src/PermutationsWithDuplicates";
+import getPerms from "../src/PermsWithDuplicates";
 
 describe("getPermutations", () => {
   it("Should find permutations for duplicate characters", () => {
