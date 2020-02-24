@@ -15,12 +15,16 @@ export default class CompleteBinaryTreeInArray<Value>
   implements CompleteBinaryTree<number, Value> {
   private nodes: Value[] = [];
 
-  isEmpty(): boolean {
-    return this.nodes.length === 0;
-  }
-
   get root(): number {
     return !this.isEmpty() ? 0 : null;
+  }
+
+  get lastNode(): number {
+    return !this.isEmpty() ? this.nodes.length - 1 : null;
+  }
+
+  isEmpty(): boolean {
+    return this.nodes.length === 0;
   }
 
   /**
@@ -60,42 +64,15 @@ export default class CompleteBinaryTreeInArray<Value>
     this.nodes.push(value);
   }
 
-  /**
-   * Get the value of a given node
-   */
-  getValue(node: number): Value {
-    return this.nodes[node];
-  }
-
-  /**
-   * Get Last Node
-   *
-   * (see the explanation on the Last Node in this class' description)
-   */
-  get lastNode(): number {
-    return !this.isEmpty() ? this.nodes.length - 1 : null;
-  }
-
-  /**
-   * Remove Last Node
-   *
-   * Only the Last Node can be removed such that to maintain a Complete Binary Tree
-   * (see the explanation on the Last Node in this class' description)
-   */
   removeLastNode(): void {
     this.nodes.pop();
   }
 
-  /**
-   * Swap nodes
-   *
-   * This is useful for rearanging nodes inside the tree without remove / insert operations.
-   * In order to keep the Complete quality, nodes can't be removed or inserted
-   * (except for the Last Node position). However, nodes can be inserted as Last Node
-   * then swapped into the right position. Or they can be swapped with the Last Node
-   * then removed.
-   */
   swapNodes(n1: number, n2: number): void {
     [this.nodes[n1], this.nodes[n2]] = [this.nodes[n2], this.nodes[n1]];
+  }
+
+  getValue(node: number): Value {
+    return this.nodes[node];
   }
 }
