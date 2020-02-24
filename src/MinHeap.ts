@@ -22,6 +22,7 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
    * The min value is in the root node.
    * We can't remove the root in a Complete Binary Tree. 
    * Only the Last Node can be removed, so swap it with root, then remove it.
+   *
    * O(log n) time
    */
   extractMin(): number {
@@ -41,11 +42,6 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
     return min;
   }
 
-  /**
-   * Bubble up small value
-   *
-   * Swap node with parent if not in the Min-Heap order (parent less than children)
-   */
   private bubbleUp(node: number) {
     const parent: number = this.getParent(node);
 
@@ -55,15 +51,13 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
     }
   }
 
-  /**
-   * Sink down big value
-   *
-   * Swap node with children if not in the Min-Heap order (parent less than children)
-   */
   private sinkDown(node: number): void {
     const smallestChild: number = this.getSmallestChild(node);
 
-    if (smallestChild && this.getValue(smallestChild) < this.getValue(node)) {
+    if (
+      smallestChild !== null &&
+      this.getValue(smallestChild) < this.getValue(node)
+    ) {
       this.swapNodes(node, smallestChild);
       this.sinkDown(smallestChild);
     }
@@ -73,8 +67,8 @@ export default class MinHeap extends CompleteBinaryTreeInArray<number> {
     const left: number = this.getLeftChild(node);
     const right: number = this.getRightChild(node);
 
-    if (right === null) return left;
     if (left === null) return right;
+    if (right === null) return left;
     return this.getValue(left) < this.getValue(right) ? left : right;
   }
 }

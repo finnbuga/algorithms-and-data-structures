@@ -19,25 +19,17 @@ export default interface CompleteBinaryTree<Node, Value>
   lastNode: Node;
 
   /**
-   * Insert value
-   *
-   * Insert new node as Last Node such that to maintain a Complete Binary Tree
-   * (see the explanation on the Last Node in this interface's description)
+   * Insert new value as Last Node such that to maintain a Complete Binary Tree
    */
   insert(value: Value): void;
 
   /**
-   * Remove Last Node
-   *
    * Only the Last Node can be removed such that to maintain a Complete Binary Tree
-   * (see the explanation on the Last Node in this interface's description)
    */
   removeLastNode(): void;
 
   /**
-   * Swap nodes
-   *
-   * This is useful for rearanging nodes inside the tree without remove / insert operations.
+   * Swapping nodes is useful for rearanging nodes inside the tree without remove / insert operations.
    * In order to keep the Complete quality, nodes can't be removed or inserted
    * (except for the Last Node position). However, nodes can be inserted as Last Node
    * then swapped into the right position. Or they can be swapped with the Last Node
