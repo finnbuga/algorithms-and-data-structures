@@ -21,7 +21,6 @@ Use this to run the unit tests. It also watches for any changes in the current d
 ## Algorithms
 
 ### [Min-Heap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MinHeap.ts)
-[![Min-Heap implementation in Typescript](https://img.shields.io/badge/MinHeap-TypeScript-0277C7.svg)](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MinHeap.ts)
 
 The Min-Heap data structure is useful for inserting values in O(log N) time and getting the minimum in O(1) time. Removing the minimum is done in O(log N) time and the space complexity is, as you expect, O(N).
 
@@ -31,14 +30,13 @@ Inserting a new value needs to be made such that it respects the above condition
 For a Balanced Binary Tree insertion takes O(log N) time. But how can we insure we have a Balanced Tree?  
 We can use a Complete Binary Tree, were we always insert into and remove from the last level.
 
-A convenient way to implement a Complete Binary Tree is using an array. Although maybe not intuitive at the first sight, there's an easy to way to calculate a node's parent and children based on its position in the array. See [![Complete Binary Tree in Array](https://img.shields.io/badge/Complete%20Binary%20Tree%20in%20Array-TypeScript-0277C7.svg)](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/CompleteBinaryTreeInArray.ts) for more details.
+A convenient way to implement a Complete Binary Tree is using an array. Although maybe not intuitive at the first sight, there's an easy to way to calculate a node's parent and children based on its position in the array. See [Complete Binary Tree in Array](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/CompleteBinaryTreeInArray.ts) for more details.
 
-### [BitMap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/BitMap.ts)
-[![Bit Map implementation in Typescript](https://img.shields.io/badge/Bit%20Map-TypeScript-0277C7.svg)](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/BitMap.ts)
+### [Merge Sort](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/mergeSort.ts)
+
+### [Bitmap](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/BitMap.ts)
 
 ### [Multi Set](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MultiSet.ts)
-
-[![Multi Set implementation in Typescript](https://img.shields.io/badge/Multi%20Set-TypeScript-0277C7.svg)](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MultiSet.ts)
 
 ## Problems
 - [Find all permutations of a given string with duplicate characters](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/PermutationsWithDuplicates.ts)
