@@ -4,7 +4,7 @@
 
 ## Writing Readable Code
 
-Whenever I search Google for algorithms I find implementations that are written in an efficient way. However they're written horribly in terms of separation of concerns, variable naming, function naming, etc.
+The Internet is full of algorithms implemented in efficient ways, but written horribly in terms of separation of concerns, variable naming, etc.
 
 This repo is my attempt to write both efficient __and__ readable algorithms. Please let me know your thoughts.
 
