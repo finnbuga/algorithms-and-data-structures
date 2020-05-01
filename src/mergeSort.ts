@@ -1,27 +1,36 @@
-export default function mergeSort(a: number[], start = 0, end = a.length) {
-  const hasLessThanTwoElements = end - start < 2;
-  if (hasLessThanTwoElements) {
-    return;
+export default function sortSlice(a: number[]) {
+  sortSlice(0, a.length);
+  return a;
+
+  function sortSlice(begin: number, end: number) {
+    const sliceLength = end - begin;
+    if (sliceLength <= 1) {
+      return;
+    }
+
+    const mid = Math.floor((begin + end) / 2);
+    sortSlice(begin, mid);
+    sortSlice(mid, end);
+    mergeSortedSlices();
+
+    function mergeSortedSlices(): void {
+      const slice1Begin = begin,
+        slice1End = mid,
+        slice2Begin = mid,
+        slice2End = end;
+      const sorted: number[] = [];
+      let i1: number = slice1Begin;
+      let i2: number = slice2Begin;
+
+      while (i1 < slice1End && i2 < slice2End) {
+        sorted.push(a[i1] <= a[i2] ? a[i1++] : a[i2++]);
+      }
+
+      while (i1 < slice1End) {
+        sorted.push(a[i1++]);
+      }
+
+      a.splice(begin, sorted.length, ...sorted);
+    }
   }
-
-  const mid = Math.floor((start + end) / 2);
-  mergeSort(a, start, mid); // sort left half
-  mergeSort(a, mid, end); // sort right half
-  merge(a, start, mid, end); // merge them
-}
-
-function merge(a: number[], start: number, mid: number, end: number): void {
-  const sorted: number[] = [];
-  let i1: number = start; // index for left half
-  let i2: number = mid; // index for right half
-
-  while (i1 < mid && i2 < end) {
-    sorted.push(a[i1] <= a[i2] ? a[i1++] : a[i2++]);
-  }
-
-  while (i1 < mid) {
-    sorted.push(a[i1++]);
-  }
-
-  a.splice(start, sorted.length, ...sorted);
 }
