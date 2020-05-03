@@ -11,6 +11,7 @@ export default function quickSort(a: number[]): number[] {
     const splitIndex = splitSmallerToLeft();
     sortSlice(begin, splitIndex);
     sortSlice(splitIndex, end);
+    return;
 
     function splitSmallerToLeft(): number {
       const mid = Math.floor((begin + end) / 2);
@@ -27,13 +28,18 @@ export default function quickSort(a: number[]): number[] {
           right--;
         }
         if (left < right) {
-          [a[left], a[right]] = [a[right], a[left]];
+          swipe(left, right);
           left++;
           right--;
         }
       }
 
-      return left;
+      const partitionIndex = left;
+      return partitionIndex;
     }
+  }
+
+  function swipe(i1: number, i2: number) {
+    [a[i1], a[i2]] = [a[i2], a[i1]];
   }
 }
