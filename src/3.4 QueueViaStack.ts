@@ -1,7 +1,7 @@
 import Stack from "./Stack";
-import Queue from "./Queue";
+import type Queue from "./Queue";
 
-export default class QueueViaStack<T> implements Queue<T> {
+export default class QueueViaStack<T = unknown> implements Queue<T> {
   stack: Stack<T> = new Stack<T>();
   reverseStack: Stack<T> = new Stack<T>();
 
