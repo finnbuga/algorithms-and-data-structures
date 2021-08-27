@@ -6,14 +6,16 @@
 
 The Internet is full of algorithms implemented in efficient ways, but written horribly in terms of separation of concerns, variable naming, etc.
 
-This repo is my attempt to write both efficient __and__ readable algorithms. Please let me know your thoughts.
+This repo is my attempt to write both efficient **and** readable algorithms. Please let me know your thoughts.
 
 ## Get started
+
 ```
-$ npm install
+$ yarn
 ```
+
 ```
-$ npm test
+$ yarn test
 ```
 
 Use this to run the unit tests. It also watches for any changes in the current directory. So feel free to hack the code, save the file and you'll see right away if the tests pass. Exit with `Ctrl+C`.
@@ -39,4 +41,5 @@ A convenient way to implement a Complete Binary Tree is using an array. Although
 ### [Multi Set](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/MultiSet.ts)
 
 ## Problems
+
 - [Find all permutations of a given string with duplicate characters](https://github.com/zendka/algorithms-and-data-structures/blob/master/src/PermutationsWithDuplicates.ts)
